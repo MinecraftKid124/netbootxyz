@@ -59,9 +59,9 @@ docker run -d \
   -e MENU_VERSION=2.0.76             `# optional` \
   -e NGINX_PORT=80                   `# optional` \
   -e WEB_APP_PORT=3000               `# optional` \
-  -p 3000:3000                       `# sets web configuration interface port, destination should match ${WEB_APP_PORT} variable above.` \
+  -p 3010:3000                       `# sets web configuration interface port, destination should match ${WEB_APP_PORT} variable above.` \
   -p 69:69/udp                       `# sets tftp port` \
-  -p 8080:80                         `# optional, destination should match ${NGINX_PORT} variable above.` \
+  -p 8010:80                         `# optional, destination should match ${NGINX_PORT} variable above.` \
   -v /local/path/to/config:/config   `# optional` \
   -v /local/path/to/assets:/assets   `# optional` \
   --restart unless-stopped \
@@ -94,25 +94,25 @@ docker-compose up -d netbootxyz    # start containers in the background
 
 ### Accessing the container services
 
-Once the container is started, the netboot.xyz web application can be accessed by the web configuration interface at `http://localhost:3000` or via the specified port.
+Once the container is started, the netboot.xyz web application can be accessed by the web configuration interface at `http://localhost:3010` or via the specified port.
 
-Downloaded web assets will be available at `http://localhost:8080` or the specified port.  If you have specified the assets volume, the assets will be available at `http://localhost:8080`.
+Downloaded web assets will be available at `http://localhost:8010` or the specified port.  If you have specified the assets volume, the assets will be available at `http://localhost:8010`.
 
 If you wish to start over from scratch, you can remove the local configuration folders and upon restart of the container, it will load the default configurations.
 
 ### Local Mirror Access
 
-If you want to pull the Live Images images down from your own mirror, modify the boot.cfg file and override the default `live_endpoint` setting from `https://github.com/netbootxyz` and set it to your deployment IP or domain, e.g. `http://192.168.0.50:8080`. It will then redirect asset download to the local location you set for assets on port `8080` and you can download the assets by using the local assets menu down to your local server. This can result in a much faster boot and load time.
+If you want to pull the Live Images images down from your own mirror, modify the boot.cfg file and override the default `live_endpoint` setting from `https://github.com/netbootxyz` and set it to your deployment IP or domain, e.g. `http://192.168.0.50:8010`. It will then redirect asset download to the local location you set for assets on port `8080` and you can download the assets by using the local assets menu down to your local server. This can result in a much faster boot and load time.
 
 ## Parameters
 
-Container images are configured using parameters passed at runtime (such as those above). These parameters are separated by a colon and indicate `<external>:<internal>` respectively. For example, `-p 8080:80` would expose port `80` from inside the container to be accessible from the host's IP on port `8080` outside the container.
+Container images are configured using parameters passed at runtime (such as those above). These parameters are separated by a colon and indicate `<external>:<internal>` respectively. For example, `-p 8010:80` would expose port `80` from inside the container to be accessible from the host's IP on port `8010` outside the container.
 
 | Parameter | Function |
 | :----: | --- |
-| `-p 3000` | Web configuration interface. |
+| `-p 3010` | Web configuration interface. |
 | `-p 69/udp` | TFTP Port. |
-| `-p 80` | NGINX server for hosting assets. |
+| `-p 8010` | NGINX server for hosting assets. |
 | `-e WEB_APP_PORT=3000` | Specify a different port for the web configuration interface to listen on. |
 | `-e NGINX_PORT=80` | Specify a different port for NGINX service to listen on. |
 | `-e MENU_VERSION=2.0.76` | Specify a specific version of boot files you want to use from netboot.xyz (unset pulls latest) |
